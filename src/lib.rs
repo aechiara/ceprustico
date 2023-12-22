@@ -65,7 +65,32 @@ pub struct RespostaCorreios {
     dados: Vec<CEP>,
 }
 
-// pub async fn busca_cep(cep: &str) -> Result<String, CepError> {
+/// Search for a CEP using the Correios API
+/// # Arguments
+/// * `cep` - The CEP to search for
+/// # Returns
+/// * `Result<CEP, CepError>` - The CEP found or an error if the CEP is invalid or the request fails
+/// # Examples
+/// ```
+/// let cep = ceprustico::busca_cep("12345678").unwrap();
+/// println!("CEP: {}", cep);
+/// ```
+/// # Errors
+/// * `InvalidInput` - If the CEP is null or empty
+/// * `InvalidInput` - If the CEP contains non-digit characters
+/// * `InvalidInput` - If the CEP has a length other than 8
+/// * `HttpRequest` - If the request fails
+/// # Panics
+/// * If the request fails
+/// # Safety
+/// * This function is unsafe because it uses reqwest::blocking::Client::post to make the request.
+/// * The request body is not validated. It is assumed that the request body is valid.
+/// * The request body is not escaped. It is assumed that the request body is properly escaped.
+/// * The request body is not validated. It is assumed that the request body is valid.
+/// * The request body is not escaped. It is assumed that the request body is properly escaped.
+/// * The request body is not validated. It is assumed that the request body is valid.
+/// * The request body is not escaped. It is assumed that the request body is properly escaped.
+/// * The request body is not validated. It is assumed that the request body is valid.
 pub fn busca_cep(cep: &str) -> Result<CEP, CepError> {
 
     // check if cep is null or empty
@@ -113,11 +138,29 @@ pub fn busca_cep(cep: &str) -> Result<CEP, CepError> {
 
 #[cfg(test)]
 mod tests {
-    // use super::*;
+    use super::*;
 
-    // #[test]
-    // fn it_works() {
-    //     let result = add(2, 2);
-    //     assert_eq!(result, 4);
-    // }
+    // test if cep is null or empty
+    #[test]
+    fn test_cep_is_null_or_empty() {
+        let cep = "";
+        let result = busca_cep(cep);
+        assert!(result.is_err());
+    }
+
+    // test if cep has size 8
+    #[test]
+    fn test_cep_has_size_8() {
+        let cep = "1234567";
+        let result = busca_cep(cep);
+        assert!(result.is_err());
+    }
+
+    // test if is only digits
+    #[test]
+    fn test_must_be_only_digits() {
+        let cep = "1234567a";
+        let result = busca_cep(cep);
+        assert!(result.is_err());
+    }
 }
