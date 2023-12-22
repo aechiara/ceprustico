@@ -3,6 +3,7 @@ name = "ceprustico"
 version = "0.1.0"
 authors = ["Alex Eduardo Chiaranda <aechiara@gmail.com>"]
 description = "Dado um CEP numérico e sem formatação, busca o endereço equivalente no site dos correios"
+documentation = "https://docs.rs/ceprustico/0.1.0/ceprustico/"
 license = "MIT"
 repository = "https://github.com/aechiara/ceprustico"
 edition = "2021"
